@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
+</head>
+
+<body>
+
+<h1>Данные пользователя</h1>
+
+<form th:action="@{/admin/save}"
+      th:object="${user}"
+      method="post">
+
+    <input type="hidden" th:field="*{id}">
+
+    <div>
+        <label>Имя:</label>
+        <input type="text" th:field="*{name}">
+        <span th:if="${#fields.hasErrors('name')}"
+              th:errors="*{name}"></span>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Фамилия:</label>
+        <input type="text" th:field="*{lastName}">
+        <span th:if="${#fields.hasErrors('lastName')}"
+              th:errors="*{lastName}"></span>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Возраст:</label>
+        <input type="number" th:field="*{age}">
+        <span th:if="${#fields.hasErrors('age')}"
+              th:errors="*{age}"></span>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Username:</label>
+        <input type="text" th:field="*{username}">
+    </div>
+
+    <br>
+
+    <div>
+        <label>Password:</label>
+        <input type="password" th:field="*{password}">
+    </div>
+
+    <br>
+
+    <div>
+        <label>Роли:</label>
+
+        <div th:each="role : ${roles}">
+            <input type="checkbox"
+                   th:field="*{roles}"
+                   th:value="${role.id}">
+            <span th:text="${role.name}"></span>
+        </div>
+    </div>
+
+    <br>
+
+    <button type="submit">Сохранить</button>
+
+</form>
+
+<br>
+
+<a th:href="@{/admin}">Назад к списку</a>
+
+<br><br>
+
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Выйти</button>
+</form>
+
+</body>
+</html>
