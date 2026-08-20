@@ -24,7 +24,8 @@ public class SpringBootSecurityDemoApplication {
 	CommandLineRunner initData(UserRepository userRepository,
 	                           RoleRepository roleRepository,
 	                           PasswordEncoder passwordEncoder,
-	                           @Value("${app.admin.password}") String adminPassword) {
+	                           @Value("${app.admin.password}") String adminPassword,
+	                           @Value("${app.user.password}") String userPassword) {
 
 		return args -> {
 
@@ -49,6 +50,19 @@ public class SpringBootSecurityDemoApplication {
 				admin.setRoles(Set.of(adminRole));
 
 				userRepository.save(admin);
+			}
+
+			if (userRepository.findByUsername("user") == null) {
+				User user = new User();
+
+				user.setName("User");
+				user.setLastName("User");
+				user.setAge(25);
+				user.setUsername("user");
+				user.setPassword(passwordEncoder.encode(userPassword));
+				user.setRoles(Set.of(userRole));
+
+				userRepository.save(user);
 			}
 		};
 	}

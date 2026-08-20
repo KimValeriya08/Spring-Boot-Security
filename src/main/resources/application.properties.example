@@ -5,4 +5,5 @@ spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 
-app.admin.password=your_admin_password
+app.admin.password=admin
+app.user.password=user
