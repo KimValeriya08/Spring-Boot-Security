@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -39,10 +40,13 @@ public class User implements UserDetails {
     @Max(value = 120, message = "Возраст должен быть от 1 до 120")
     private Integer age;
 
+    @NotBlank(message = "Username не должен быть пустым")
     private String username;
 
+    @NotBlank(message = "Password не должен быть пустым")
     private String password;
 
+    @NotEmpty(message = "Необходимо выбрать хотя бы одну роль")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",

@@ -22,6 +22,8 @@
         <th>Имя</th>
         <th>Фамилия</th>
         <th>Возраст</th>
+        <th>Username</th>
+        <th>Роли</th>
         <th>Действия</th>
     </tr>
     </thead>
@@ -32,6 +34,13 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.age}"></td>
+        <td th:text="${user.username}"></td>
+
+        <td>
+    <span th:each="role : ${user.roles}"
+          th:text="${role.name + ' '}">
+    </span>
+        </td>
 
         <td>
             <a th:href="@{/admin/edit/{id}(id=${user.id})}">

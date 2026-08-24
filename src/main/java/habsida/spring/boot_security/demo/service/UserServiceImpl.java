@@ -61,6 +61,12 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
+        Set<Role> managedRoles = user.getRoles().stream()
+                .map(role -> roleRepository.findById(role.getId()).orElse(null))
+                .collect(Collectors.toSet());
+
+        user.setRoles(managedRoles);
+
         userRepository.save(user);
     }
 

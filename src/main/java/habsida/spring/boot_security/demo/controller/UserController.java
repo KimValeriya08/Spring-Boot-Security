@@ -37,6 +37,20 @@ public class UserController {
             BindingResult bindingResult,
             Model model
     ) {
+
+        User userWithSameUsername = userService.findByUsername(user.getUsername());
+
+        if (userWithSameUsername != null &&
+                (user.getId() == null ||
+                        !userWithSameUsername.getId().equals(user.getId()))) {
+
+            bindingResult.rejectValue(
+                    "username",
+                    "error.user",
+                    "Пользователь с таким Username уже существует"
+            );
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("roles", userService.getAllRoles());
             return "user-form";

@@ -47,6 +47,8 @@
     <div>
         <label>Username:</label>
         <input type="text" th:field="*{username}">
+        <span th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}"></span>
     </div>
 
     <br>
@@ -54,6 +56,9 @@
     <div>
         <label>Password:</label>
         <input type="password" th:field="*{password}">
+        <span th:if="${#fields.hasErrors('password')}"
+              th:errors="*{password}"></span>
+
     </div>
 
     <br>
@@ -67,6 +72,8 @@
                    th:value="${role.id}">
             <span th:text="${role.name}"></span>
         </div>
+        <span th:if="${#fields.hasErrors('roles')}"
+              th:errors="*{roles}"></span>
     </div>
 
     <br>
