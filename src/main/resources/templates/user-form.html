@@ -5,6 +5,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Пользователь</title>
+
+    <style>
+        .form-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .form-row label {
+            width: 120px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field input[type="text"],
+        .form-field input[type="number"],
+        .form-field input[type="password"] {
+            width: 220px;
+            box-sizing: border-box;
+        }
+
+        .hint {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .error {
+            margin-top: 5px;
+            color: red;
+        }
+
+        .roles {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .role-item {
+            margin-bottom: 4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,66 +61,103 @@
 
     <input type="hidden" th:field="*{id}">
 
-    <div>
+    <div class="form-row">
         <label>Имя:</label>
-        <input type="text" th:field="*{name}">
-        <span th:if="${#fields.hasErrors('name')}"
-              th:errors="*{name}"></span>
+
+        <div class="form-field">
+            <input type="text" th:field="*{name}">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}">
+            </span>
+        </div>
     </div>
 
-    <br>
 
-    <div>
+    <div class="form-row">
         <label>Фамилия:</label>
-        <input type="text" th:field="*{lastName}">
-        <span th:if="${#fields.hasErrors('lastName')}"
-              th:errors="*{lastName}"></span>
+
+        <div class="form-field">
+            <input type="text" th:field="*{lastName}">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('lastName')}"
+                  th:errors="*{lastName}">
+            </span>
+        </div>
     </div>
 
-    <br>
 
-    <div>
+    <div class="form-row">
         <label>Возраст:</label>
-        <input type="number" th:field="*{age}">
-        <span th:if="${#fields.hasErrors('age')}"
-              th:errors="*{age}"></span>
+
+        <div class="form-field">
+            <input type="number" th:field="*{age}">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('age')}"
+                  th:errors="*{age}">
+            </span>
+        </div>
     </div>
 
-    <br>
 
-    <div>
+    <div class="form-row">
         <label>Username:</label>
-        <input type="text" th:field="*{username}">
-        <span th:if="${#fields.hasErrors('username')}"
-              th:errors="*{username}"></span>
+
+        <div class="form-field">
+            <input type="text" th:field="*{username}">
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('username')}"
+                  th:errors="*{username}">
+            </span>
+        </div>
     </div>
 
-    <br>
 
-    <div>
+    <div class="form-row">
         <label>Password:</label>
-        <input type="password" th:field="*{password}">
-        <span th:if="${#fields.hasErrors('password')}"
-              th:errors="*{password}"></span>
 
+        <div class="form-field">
+            <input type="password" th:field="*{password}">
+
+            <span class="hint"
+                  th:if="${user.id != null}">
+                Оставьте пустым, если не хотите менять пароль
+            </span>
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">
+            </span>
+        </div>
     </div>
 
-    <br>
 
-    <div>
+    <div class="form-row">
         <label>Роли:</label>
 
-        <div th:each="role : ${roles}">
-            <input type="checkbox"
-                   th:field="*{roles}"
-                   th:value="${role.id}">
-            <span th:text="${role.name}"></span>
+        <div class="form-field roles">
+
+            <div class="role-item"
+                 th:each="role : ${roles}">
+
+                <input type="checkbox"
+                       th:field="*{roles}"
+                       th:value="${role.id}">
+
+                <span th:text="${role.name}"></span>
+            </div>
+
+            <span class="error"
+                  th:if="${#fields.hasErrors('roles')}"
+                  th:errors="*{roles}">
+            </span>
         </div>
-        <span th:if="${#fields.hasErrors('roles')}"
-              th:errors="*{roles}"></span>
     </div>
 
-    <br>
 
     <button type="submit">Сохранить</button>
 

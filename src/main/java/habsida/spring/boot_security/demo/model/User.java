@@ -43,7 +43,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Username не должен быть пустым")
     private String username;
 
-    @NotBlank(message = "Password не должен быть пустым")
     private String password;
 
     @NotEmpty(message = "Необходимо выбрать хотя бы одну роль")

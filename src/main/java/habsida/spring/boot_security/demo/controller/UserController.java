@@ -38,7 +38,18 @@ public class UserController {
             Model model
     ) {
 
-        User userWithSameUsername = userService.findByUsername(user.getUsername());
+        if (user.getId() == null &&
+                (user.getPassword() == null || user.getPassword().isBlank())) {
+
+            bindingResult.rejectValue(
+                    "password",
+                    "error.user",
+                    "Password не должен быть пустым"
+            );
+        }
+
+        User userWithSameUsername =
+                userService.findByUsername(user.getUsername());
 
         if (userWithSameUsername != null &&
                 (user.getId() == null ||
