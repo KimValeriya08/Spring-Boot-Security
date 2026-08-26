@@ -7,3 +7,5 @@ spring.jpa.show-sql=true
 
 app.admin.password=admin
 app.user.password=user
+
+spring.jpa.open-in-view=false
